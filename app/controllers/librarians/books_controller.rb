@@ -28,7 +28,8 @@ class Librarians::BooksController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    # Add validation to prevent deletion of books that have copies checked out
     @book.destroy
     render status: 204
   end
@@ -37,5 +38,9 @@ class Librarians::BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :author, :genre, :isbn, :copies_amount)
+  end
+
+  def set_book
+    @book = Book.find(params[:id])
   end
 end

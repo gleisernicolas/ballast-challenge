@@ -10,6 +10,14 @@ Rails.application.routes.draw do
   }
 
   namespace :librarians do
-    resources :books, only: [:index, :create, :update, :destroy]
+    resources :books, only: [:index, :create, :update, :destroy, :show]
+    resources :loans, only: [:index, :show]
+
+    put '/loans/:id/return', to: 'loans#return'
+  end
+
+  namespace :members do
+    get '/available_books', to: 'books#available_books'
+    resources :loans, only: [:index, :create, :show]
   end
 end

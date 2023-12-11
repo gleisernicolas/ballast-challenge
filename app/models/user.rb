@@ -9,10 +9,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def librarian?
-    role == 'librarian'
+    type == 'librarian'
   end
 
   def member?
-    role == 'member'
+    type == 'member'
   end
 end

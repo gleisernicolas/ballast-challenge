@@ -2,11 +2,6 @@
 
 class Members::SessionsController < Devise::SessionsController
   respond_to :json
-  def create
-    debugger
-
-    super
-  end
   private
 
   def respond_with(resource, _opts = {})
