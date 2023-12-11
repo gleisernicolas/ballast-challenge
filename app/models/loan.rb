@@ -1,8 +1,8 @@
 class Loan < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :member, class_name: 'User', foreign_key: 'user_id'
   belongs_to :book
 
-  validates :user, :book, :due_at, :checked_out_at, presence: true
+  validates :member, :book, :due_at, :checked_out_at, presence: true
   validate :due_at_cannot_be_in_the_past
 
   def due_at_cannot_be_in_the_past

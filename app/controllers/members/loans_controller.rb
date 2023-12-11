@@ -2,12 +2,13 @@ class Members::LoansController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    loans = Loan.where(user_id: current_member.id)
+    loans = current_member.loans
     render json: loans, status: 200
   end
 
   def create
-    loan = Loan.new(loan_params)
+    loan = LoanCreationService.call(loan_params, current_member)
+
     if loan.save
       render json: loan, status: 201
     else
