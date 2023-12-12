@@ -3,7 +3,7 @@ class Librarians::BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
 
   def index
-    books = Book.all
+    books = Book.includes(:loans).where(filter_params)
     render json: books, status: 200
   end
 
@@ -29,8 +29,8 @@ class Librarians::BooksController < ApplicationController
   end
 
   def destroy
-    # Add validation to prevent deletion of books that have copies checked out
     @book.destroy
+
     render status: 204
   end
 
@@ -42,5 +42,9 @@ class Librarians::BooksController < ApplicationController
 
   def set_book
     @book = Book.find(params[:id])
+  end
+
+  def filter_params
+    params.permit(:title, :author, :genre, :isbn)
   end
 end

@@ -18,9 +18,10 @@ class Members::LoansController < ApplicationController
 
   def show
     loan = Loan.find(params[:id])
+
     render json: loan, status: 200
   end
-
+  
   private
 
   def loan_params

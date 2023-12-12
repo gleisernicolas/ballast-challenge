@@ -14,10 +14,13 @@ Rails.application.routes.draw do
     resources :loans, only: [:index, :show]
 
     put '/loans/:id/return', to: 'loans#return'
+    get '/dashboard', to: 'dashboard#show'
   end
 
   namespace :members do
     get '/available_books', to: 'books#available_books'
+    resources :books, only: [:index, :show]
     resources :loans, only: [:index, :create, :show]
+    get '/dashboard', to: 'dashboard#show'
   end
 end
